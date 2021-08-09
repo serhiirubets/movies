@@ -6,7 +6,7 @@
     "outDir": "./build",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "rootDir": "./",
+    "rootDir": "./src",
     /* Strict Type-Checking Options */
     "strict": true,
     "noImplicitAny": true,
