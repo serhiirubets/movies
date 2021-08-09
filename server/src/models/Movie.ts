@@ -34,7 +34,7 @@ export class Movie extends Model {
     @Column(DataType.NUMBER)
     duration: number
     
-    @Column(DataType.ENUM)
+    @Column(DataType.ENUM(MovieType.film, MovieType.serial, MovieType.trailer))
     type: MovieType
 
     @Column(DataType.TEXT)
