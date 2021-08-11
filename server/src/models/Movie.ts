@@ -1,48 +1,24 @@
-import {Table, Column, Model, HasMany, DataType, ForeignKey, CreatedAt, UpdatedAt} from 'sequelize-typescript';
-import {Actor} from "./Actor";
+import * as mongoose from "mongoose";
 
 export enum MovieType {
-    film = 'film',
-    serial = 'serial',
-    trailer = 'trailer'
+  film = 'film',
+  serial = 'serial',
+  trailer = 'trailer'
 }
 
-@Table
-export class Movie extends Model {
-    @Column(DataType.TEXT)
-    name: string
-    
-    @Column(DataType.TEXT)
-    slug: string
-    
-    @Column(DataType.TEXT)
-    description: string
+const movieSchema = new mongoose.Schema({
+  name: String,
+  slug: String,
+  description: String,
+  date: String,
+  genre: String,
+  rating: Number,
+  duration: Number,
+  country: String,
+  createdAt: Date,
+  updatedAt: Date,
+  actors: [String]
+});
 
-    @Column(DataType.DATE)
-    date: Date
-    
-    @Column({ type: DataType.ARRAY(DataType.STRING) })
-    genre: string[]
-
-    @ForeignKey(() => Actor)
-    @Column({ primaryKey: true, allowNull: false, unique: true })
-    actors: string
-    
-    @Column(DataType.NUMBER)
-    rating: number
-
-    @Column(DataType.NUMBER)
-    duration: number
-    
-    @Column(DataType.ENUM(MovieType.film, MovieType.serial, MovieType.trailer))
-    type: MovieType
-
-    @Column(DataType.TEXT)
-    country: string
-
-    @CreatedAt
-    creationDate: Date;
-
-    @UpdatedAt
-    updatedOn: Date;
-}
+const Movie = mongoose.model('movies', movieSchema);
+export {Movie}

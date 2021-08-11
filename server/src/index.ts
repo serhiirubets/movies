@@ -1,20 +1,18 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, {Application, Request, Response, NextFunction} from 'express';
 import cors from 'cors';
-import { Sequelize } from 'sequelize-typescript'
-import config from '../config';
+import {Mongoose} from "mongoose";
+import {connection} from "./setup/db";
+import config from "../config";
 
-const sequelize = new Sequelize(config);
-
-// Boot express
 const app: Application = express();
-const port = 8888;
 
 app.use(cors());
 
 // Application routing
-app.use('/', (req: Request, res: Response, next: NextFunction ) => {
-    res.status(200).send({data: 'Hello from Ornio AS'});
+app.use('/', (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).send({data: 'Hello from Ornio AS'});
 });
 
-// Start server
-app.listen(port, () => console.log(`Server is listening on port ${port}!`));
+connection.then((data: Mongoose) => {
+  app.listen(config.port, () => console.log(`Server is listening on port ${port}!`));
+})

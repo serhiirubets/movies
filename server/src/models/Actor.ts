@@ -3,15 +3,15 @@ import {Table, Column, Model, HasMany, CreatedAt, UpdatedAt} from 'sequelize-typ
 
 @Table
 export class Actor extends Model {
-    @Column
-    name: string;
+  @Column
+  name: string;
 
-    @Column
-    pictureUrl: string;
+  @Column
+  pictureUrl: string;
 
-    @CreatedAt
-    creationDate: Date;
+  @CreatedAt
+  creationDate: Date;
 
-    @UpdatedAt
-    updatedOn: Date;
+  @UpdatedAt
+  updatedOn: Date;
 }
