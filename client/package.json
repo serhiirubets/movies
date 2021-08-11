@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch",
+    "watch": "webpack-dev-server --mode=development",
     "eslint": "eslint *.js",
     "lint": "eslint --ext .ts,.tsx",
     "lint:fix": "npm run lint -- --fix",

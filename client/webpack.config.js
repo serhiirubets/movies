@@ -12,13 +12,13 @@ module.exports = {
     main: path.resolve(__dirname, 'index.js'),
   },
   devServer: {
-    contentBase: './',
+    contentBase: path.join(__dirname, 'build'),
     port: 7777,
     inline: false,
   },
   output: {
-    path: path.resolve(__dirname, './build'),
-    filename: 'index.bundle.js',
+    path: path.resolve(__dirname, 'build'),
+    filename: 'index.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -28,3 +28,4 @@ module.exports = {
     new ESLintPlugin(),
   ],
 };
+
