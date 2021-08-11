@@ -1,9 +1,7 @@
-export class Header {
-  private toHTML() {
-    return 'I am Header'
-  }
+import {BaseComponent} from "../BaseComponent";
 
-  render(container: HTMLElement) {
-    container.append(this.toHTML())
+export class Header extends BaseComponent {
+  protected toHTML(): string {
+    return "I am a header";
   }
 }
