@@ -12,8 +12,9 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'build'),
     port: 7777,
-    compress: true
+    compress: true,
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -32,7 +33,7 @@ module.exports = {
       title: 'Movie',
       minify: true,
       template: 'src/index.html',
-    })
+    }),
   ],
 };
 
