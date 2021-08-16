@@ -15,6 +15,6 @@ export class Field extends BaseComponent {
 
   public toHTML(): string {
     const {placeholder, type} = this.props;
-    return `<input type="${type}" class="field" placeholder="${placeholder}">`;
+    return `<input type="${type}" class="field form-control me-2" placeholder="${placeholder}">`;
   }
 }

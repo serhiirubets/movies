@@ -11,7 +11,7 @@ const buttonOptions = [
     id: 'login',
     text: 'Login',
     isHidden: false,
-    onClick: function() {
+    onClick: function () {
       console.log('clicked');
     },
   },
@@ -21,7 +21,7 @@ const buttonOptions = [
     id: 'my-account-link',
     text: 'My Account',
     isHidden: false,
-    onClick: function() {
+    onClick: function () {
       console.log('clicked');
     },
   },
@@ -31,7 +31,7 @@ const buttonOptions = [
     id: 'logout',
     text: 'Logout',
     isHidden: false,
-    onClick: function() {
+    onClick: function () {
       console.log('clicked');
     },
   },
@@ -41,7 +41,7 @@ const buttonOptions = [
     id: 'admin-link',
     text: 'Admin',
     isHidden: false,
-    onClick: function() {
+    onClick: function () {
       console.log('clicked');
     },
   },
@@ -71,17 +71,27 @@ export class Header extends BaseComponent {
 
     return `
       <div class="header">
-        <a href="#" class="logo">
-            <img src="" alt="" class="logo__img">
-        </a>
-        <form action="#" method="get" class="search">
-          ${this.searchField.toHTML()}
-          ${this.findButton.toHTML()}
-        </form>
-        <div class="user-section">
-          ${this.buttonLinks.map((button) => button.toHTML())}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+               <a href="#" class="logo">
+                  <img src="" alt="" class="logo__img ">
+               </a>
+            </div>
+            <div class="col">
+              <div class="container-fluid">
+                <form action="#" method="get" class="search d-flex">
+                  ${this.searchField.toHTML()}
+                  ${this.findButton.toHTML()}
+                </form>
+              </div>
+            </div>
+            <div class="user-section col navbar navbar-light">
+              ${this.buttonLinks.map((button) => button.toHTML())}
+            </div>
+          </div>
         </div>
-      </div>
+     </div>
     `;
   };
 }

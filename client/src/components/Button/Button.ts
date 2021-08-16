@@ -17,6 +17,6 @@ export class Button extends BaseComponent {
 
   public toHTML(): string {
     const {text, type} = this.props;
-    return `<button type="${type}" class="button">${text}</button>`;
+    return `<button type="${type}" class="button btn btn-outline-success">${text}</button>`;
   }
 }
