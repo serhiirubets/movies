@@ -1,0 +1,46 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
+import {ReviewModel} from './review.model';
+import {CreateReviewDto} from './dto/create-review.dto';
+import {ReviewsService} from './reviews.service';
+import {REVIEW_NOT_FOUND} from './review.constant';
+
+@Controller('reviews')
+export class ReviewsController {
+  constructor(private reviewsService: ReviewsService) {
+  }
+
+  @Get('byMovieId/:movieId')
+  async getByMovieId(@Param('movieId') movieId: string) {
+    return this.reviewsService.findByMovieId(movieId);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @Post('create')
+  async create(@Body() dto: CreateReviewDto) {
+    return this.reviewsService.create(dto);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const deletedDoc = await this.reviewsService.delete(id);
+    if (!deletedDoc) {
+      throw new HttpException(REVIEW_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @Delete('byMovieId/:movieId')
+  async deleteByMovieId(@Param('movieId') movieId: string) {
+    return this.reviewsService.deleteByMovieId(movieId);
+  }
+}

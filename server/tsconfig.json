@@ -1,26 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "./build",
-    "experimentalDecorators": true,
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
-    "rootDir": "./",
-    /* Strict Type-Checking Options */
-    "strict": true,
-    "noImplicitAny": true,
-    /* Module Resolution Options */
-    "moduleResolution": "node",
-    "baseUrl": "./src",
-    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    /* Advanced Options */
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": false
-  },
-  "lib": ["es2015"],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "strict": true,
+    "strictPropertyInitialization": false,
+  }
 }
