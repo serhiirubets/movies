@@ -1,4 +1,4 @@
-import {IsNumber, IsString, Max, Min} from 'class-validator';
+import { IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateReviewDto {
   @IsString()
@@ -16,5 +16,5 @@ export class CreateReviewDto {
   rating: number;
 
   @IsString()
-  movieId: string
+  movieId: string;
 }

@@ -7,18 +7,19 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
   UsePipes,
-  ValidationPipe
+  ValidationPipe,
 } from '@nestjs/common';
-import {ReviewModel} from './review.model';
-import {CreateReviewDto} from './dto/create-review.dto';
-import {ReviewsService} from './reviews.service';
-import {REVIEW_NOT_FOUND} from './review.constant';
+import { ReviewModel } from './review.model';
+import { CreateReviewDto } from './dto/create-review.dto';
+import { ReviewsService } from './reviews.service';
+import { REVIEW_NOT_FOUND } from './review.constant';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 
 @Controller('reviews')
 export class ReviewsController {
-  constructor(private reviewsService: ReviewsService) {
-  }
+  constructor(private reviewsService: ReviewsService) {}
 
   @Get('byMovieId/:movieId')
   async getByMovieId(@Param('movieId') movieId: string) {
@@ -31,6 +32,7 @@ export class ReviewsController {
     return this.reviewsService.create(dto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const deletedDoc = await this.reviewsService.delete(id);
