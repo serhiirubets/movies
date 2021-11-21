@@ -19,7 +19,9 @@ import { UserEmail } from '../decorators/user-email.decorator';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { MoviesService } from './movies.service';
 import { PRODUCT_NOT_FOUND_ERROR } from './movies.constants';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('movies')
 @Controller('movies')
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
