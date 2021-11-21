@@ -20,6 +20,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { MoviesService } from './movies.service';
 import { PRODUCT_NOT_FOUND_ERROR } from './movies.constants';
 import { ApiTags } from '@nestjs/swagger';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @ApiTags('movies')
 @Controller('movies')
@@ -33,7 +34,7 @@ export class MoviesController {
   }
 
   @Get(':id')
-  async get(@Param('id') id: string) {
+  async get(@Param('id', IdValidationPipe) id: string) {
     const product = this.moviesService.findById(id);
 
     if (!product) {
@@ -50,7 +51,10 @@ export class MoviesController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: MovieModel) {
+  async update(
+    @Param('id', IdValidationPipe) id: string,
+    @Body() dto: MovieModel,
+  ) {
     const updatedMovie = await this.moviesService.update(id, dto);
 
     if (!updatedMovie) {
@@ -61,7 +65,7 @@ export class MoviesController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', IdValidationPipe) id: string) {
     const deletedMovie = await this.moviesService.delete(id);
 
     if (!deletedMovie) {

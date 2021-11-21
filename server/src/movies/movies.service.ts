@@ -44,6 +44,18 @@ export class MoviesService {
           $addFields: {
             reviewsCount: { $size: '$reviews' },
             reviewsAvg: { $avg: '$reviews.rating' },
+            reviews: {
+              $function: {
+                body: `function (reviews) {
+                  reviews.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  });
+                  return reviews;
+                }`,
+                args: ['$reviews'],
+                lang: 'js',
+              },
+            },
           },
         },
       ])
