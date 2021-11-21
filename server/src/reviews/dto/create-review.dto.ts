@@ -2,10 +2,7 @@ import { IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateReviewDto {
   @IsString()
-  userName: string;
-
-  @IsString()
-  title: string;
+  userId: string;
 
   @IsString()
   description: string;

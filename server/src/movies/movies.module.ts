@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import {TypegooseModule} from 'nestjs-typegoose';
 import {MovieModel} from './movie.model';
+import { MoviesService } from './movies.service';
 
 @Module({
   controllers: [MoviesController],
@@ -14,6 +15,7 @@ import {MovieModel} from './movie.model';
         }
       }
     ])
-  ]
+  ],
+  providers: [MoviesService]
 })
 export class MoviesModule {}
