@@ -20,46 +20,60 @@ export class MoviesService {
     return this.movieModel.findById(id).exec();
   }
 
-  findWithReviews(dto: FindMovieDto) {
-    return this.movieModel
-      .aggregate([
-        {
-          $match: { genres: dto.genre },
+  private getRules(dto) {
+    const searchRules = [];
+
+    if (dto.searchedTxt) {
+      searchRules.push({
+        $match: { $text: { $search: dto.searchedTxt } },
+      });
+    }
+
+    if (dto.genre) {
+      searchRules.push({
+        $match: { genres: dto.genre },
+      });
+    }
+
+    if (dto.limit) {
+      searchRules.push({ $limit: dto.limit });
+    }
+
+    searchRules.push(
+      {
+        $lookup: {
+          from: 'Review',
+          localField: '_id',
+          foreignField: 'movieId',
+          as: 'reviews',
         },
-        {
-          $sort: { _id: 1 },
-        },
-        {
-          $limit: dto.limit,
-        },
-        {
-          $lookup: {
-            from: 'Review',
-            localField: '_id',
-            foreignField: 'movieId',
-            as: 'reviews',
-          },
-        },
-        {
-          $addFields: {
-            reviewsCount: { $size: '$reviews' },
-            reviewsAvg: { $avg: '$reviews.rating' },
-            reviews: {
-              $function: {
-                body: `function (reviews) {
+      },
+      {
+        $addFields: {
+          reviewsCount: { $size: '$reviews' },
+          reviewsAvg: { $avg: '$reviews.rating' },
+          reviews: {
+            $function: {
+              body: `function (reviews) {
                   reviews.sort((a, b) => {
                     return new Date(b.createdAt) - new Date(a.createdAt);
                   });
                   return reviews;
                 }`,
-                args: ['$reviews'],
-                lang: 'js',
-              },
+              args: ['$reviews'],
+              lang: 'js',
             },
           },
         },
-      ])
-      .exec() as Promise<
+      },
+    );
+
+    return searchRules;
+  }
+
+  findWithReviews(dto: FindMovieDto) {
+    const rules = this.getRules(dto);
+    return this.movieModel.aggregate(rules).exec() as Promise<
       (MovieModel & {
         review: ReviewModel[];
         reviewCount: number;

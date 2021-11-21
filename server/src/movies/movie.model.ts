@@ -1,7 +1,8 @@
-import {Base, TimeStamps} from '@typegoose/typegoose/lib/defaultClasses';
-import {prop} from '@typegoose/typegoose';
+import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+import { index, prop } from '@typegoose/typegoose';
 
-export interface MovieModel extends Base { }
+export interface MovieModel extends Base {}
+@index({ title: 'text', description: 'text' })
 export class MovieModel extends TimeStamps {
   @prop()
   image: string;
@@ -24,12 +25,12 @@ export class MovieModel extends TimeStamps {
   @prop()
   duration: number;
 
-  @prop({ type: () => [String]})
-  comments: string[];
+  @prop({ type: () => [String] })
+  reviews: string[];
 
-  @prop({ type: () => [String]})
+  @prop({ type: () => [String] })
   genres: string[];
 
-  @prop({ type: () => [String]})
+  @prop({ type: () => [String] })
   actors: string[];
 }

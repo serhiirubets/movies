@@ -1,9 +1,15 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class FindMovieDto {
+  @IsOptional()
   @IsString()
-  genre: string;
+  genre?: string;
 
+  @IsOptional()
   @IsNumber()
-  limit: number;
+  limit?: number;
+
+  @IsOptional()
+  @IsString()
+  searchedTxt?: string;
 }
