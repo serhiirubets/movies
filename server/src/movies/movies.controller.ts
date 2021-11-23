@@ -28,7 +28,7 @@ export class MoviesController {
   constructor(private moviesService: MoviesService) {}
 
   @UsePipes(new ValidationPipe())
-  @Post('create')
+  @Post('')
   async create(@Body() dto: CreateMovieDto) {
     return this.moviesService.create(dto);
   }
@@ -44,11 +44,14 @@ export class MoviesController {
     return product;
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('')
-  async getAll(@UserEmail() email: string) {
-    return ['test'];
+  getAll() {
+    return this.moviesService.getAll();
   }
+  // async getAll(@UserEmail() email: string) {
+  //   return ['test'];
+  // }
 
   @Patch(':id')
   async update(

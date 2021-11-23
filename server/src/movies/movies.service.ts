@@ -12,12 +12,35 @@ export class MoviesService {
     @InjectModel(MovieModel) private readonly movieModel: ModelType<MovieModel>,
   ) {}
 
+  getAll() {
+    return this.findWithReviews({});
+  }
+
   create(dto: CreateMovieDto): Promise<DocumentType<MovieModel>> {
     return this.movieModel.create(dto);
   }
 
   findById(id: string): Promise<DocumentType<MovieModel>> {
     return this.movieModel.findById(id).exec();
+  }
+
+  findWithReviews(dto: FindMovieDto) {
+    const rules = this.getRules(dto);
+    return this.movieModel.aggregate(rules).exec() as Promise<
+      (MovieModel & {
+        review: ReviewModel[];
+        reviewCount: number;
+        reviewAvg: number;
+      })[]
+    >;
+  }
+
+  delete(id: string): Promise<DocumentType<MovieModel> | null> {
+    return this.movieModel.findByIdAndDelete(id).exec();
+  }
+
+  update(id: string, dto: CreateMovieDto) {
+    return this.movieModel.findByIdAndUpdate(id, dto, { new: true });
   }
 
   private getRules(dto) {
@@ -69,24 +92,5 @@ export class MoviesService {
     );
 
     return searchRules;
-  }
-
-  findWithReviews(dto: FindMovieDto) {
-    const rules = this.getRules(dto);
-    return this.movieModel.aggregate(rules).exec() as Promise<
-      (MovieModel & {
-        review: ReviewModel[];
-        reviewCount: number;
-        reviewAvg: number;
-      })[]
-    >;
-  }
-
-  delete(id: string): Promise<DocumentType<MovieModel> | null> {
-    return this.movieModel.findByIdAndDelete(id).exec();
-  }
-
-  update(id: string, dto: CreateMovieDto) {
-    return this.movieModel.findByIdAndUpdate(id, dto, { new: true });
   }
 }
